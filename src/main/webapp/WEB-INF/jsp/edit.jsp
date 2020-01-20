@@ -23,7 +23,7 @@
         <input type="hidden" name="id" value="${meal.id}">
         <label for="desc">Описание еды:</label><input type="text" id="desc" name="description" value="${meal.description}"/><br>
         <label for="datetime">Время приема:</label><input type="datetime-local" id="datetime" name="time" value="${meal.dateTime}"/><br>
-        <label for="calories">Калории:</label><input type="text" id="calories" name="calories" value="${meal.calories}"/><br>
+        <label for="calories">Калории:</label><input type="number" id="calories" name="calories" value="${meal.calories}"/><br>
         <span><input type="submit"/></span>
     </form>
 </div>
