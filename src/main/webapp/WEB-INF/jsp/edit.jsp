@@ -12,10 +12,11 @@
 <head>
     <%--<jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>--%>
     <link rel="stylesheet" href="style.css">
+        <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
     <title>${meal.id}</title>
 </head>
 <body>
-<h1>${meal.id==null?'Create new meal':'Edit meal'}</h1>
+<h1>${meal.id==-1?'Create new meal':'Edit meal'}</h1>
 <h1>${meal.description}</h1>
 <div class="mealform">
     <form method="post" action="meals">

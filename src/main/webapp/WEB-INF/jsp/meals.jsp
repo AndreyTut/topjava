@@ -24,8 +24,9 @@
         <th></th>
     </tr>
     <c:forEach var="meal" items="${meals}">
+        <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo"/>
         <tr <c:if test="${meal.isExcess()}">class="exceed" </c:if> >
-            <td>${meal.getDescription()}</td>
+            <td>${meal.description}</td>
             <td>${meal.getDateTime().toLocalDate()} ${meal.getDateTime().toLocalTime()}</td>
             <td>${meal.getCalories()}</td>
             <td><a href="meals?action=edit&id=${meal.getId()}"><img src="img/pencil.png">edit</a></td>

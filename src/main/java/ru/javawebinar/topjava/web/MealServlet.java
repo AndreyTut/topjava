@@ -60,13 +60,15 @@ public class MealServlet extends HttpServlet {
                 storage.delete(id);
                 logger.debug("inside delete id=" + id);
                 resp.sendRedirect("meals");
-                break;
+                return;
             case "edit":
                 req.setAttribute("meal", storage.get(id));
                 logger.debug("edit meal with id=" + id);
+                break;
             case "add":
-                req.getRequestDispatcher("WEB-INF/jsp/edit.jsp").forward(req, resp);
+                req.setAttribute("meal", new Meal(LocalDateTime.MIN, "", 0));
                 break;
         }
+        req.getRequestDispatcher("WEB-INF/jsp/edit.jsp").forward(req, resp);
     }
 }
