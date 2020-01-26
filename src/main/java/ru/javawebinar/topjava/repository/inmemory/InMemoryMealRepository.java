@@ -7,17 +7,13 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
-import ru.javawebinar.topjava.web.SecurityUtil;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Repository
@@ -58,7 +54,7 @@ public class InMemoryMealRepository implements MealRepository {
     @Override
     public Collection<Meal> getAll(int userId) {
         logger.info("getting all for user {}", userId);
-        return repository.getOrDefault(userId, new ConcurrentHashMap<Integer, Meal>()).values().stream()
+        return repository.getOrDefault(userId, new ConcurrentHashMap<>()).values().stream()
                 .sorted((m1, m2) -> m2.getDateTime().compareTo(m1.getDateTime()))
                 .collect(Collectors.toList());
     }
@@ -77,40 +73,6 @@ public class InMemoryMealRepository implements MealRepository {
             return function.apply(userMeals);
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        MealRepository mealRepository = new InMemoryMealRepository();
-        ((InMemoryMealRepository) mealRepository).print();
-//        mealRepository.delete(3, 10);
-        Meal meal = new Meal(10, LocalDateTime.of(2019, Month.MAY, 30, 10, 0), "lunch", 50000);
-        Meal meal_new = new Meal(LocalDateTime.of(2019, Month.MAY, 30, 10, 0), "new lunch", 5400);
-        meal.setId(10);
-        mealRepository.save(1, meal);
-        System.out.println(mealRepository.save(1, meal));
-        System.out.println(mealRepository.save(2, meal));
-        System.out.println(mealRepository.save(3, meal_new));
-        ((InMemoryMealRepository) mealRepository).print();
-        System.out.println(mealRepository.delete(1, 1));
-        System.out.println(mealRepository.delete(2, 4));
-        ((InMemoryMealRepository) mealRepository).print();
-        System.out.println(mealRepository.delete(3, 54));
-        System.out.println("******************");
-        System.out.println(mealRepository.get(2, 2));
-        System.out.println(mealRepository.get(2, 11));
-        System.out.println(mealRepository.get(100, 11));
-        System.out.println(mealRepository.get(100, 100));
-        System.out.println("****************************");
-        System.out.println(mealRepository.getAll(1));
-        System.out.println(mealRepository.getFilteredByDate(2, LocalDate.of(2015, 5, 21), LocalDate.of(2015, 5, 24)));
-    }
-
-    private void print() {
-        repository.forEach((k, v) -> {
-            System.out.println(k + ":");
-            v.forEach((i, m) -> System.out.println(i + ": " + m));
-            System.out.println("**************************");
-        });
     }
 }
 
