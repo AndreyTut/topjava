@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.Meal;
@@ -15,9 +17,11 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class MealService {
 
+
     private final MealRepository repository;
 
-    public MealService(MealRepository repository) {
+    @Autowired
+    public MealService(@Qualifier("jdbcMealRepo") MealRepository repository) {
         this.repository = repository;
     }
 

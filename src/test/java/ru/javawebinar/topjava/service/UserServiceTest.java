@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -34,6 +35,7 @@ public class UserServiceTest {
     }
 
     @Autowired
+    @Qualifier("jdbcUserService")
     private UserService service;
 
     @Test
@@ -91,4 +93,6 @@ public class UserServiceTest {
         List<User> all = service.getAll();
         assertMatch(all, ADMIN, USER);
     }
+
+
 }

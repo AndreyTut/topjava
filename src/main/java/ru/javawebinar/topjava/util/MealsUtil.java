@@ -35,6 +35,10 @@ public class MealsUtil {
         return getFiltered(meals, caloriesPerDay, meal -> Util.isBetweenInclusive(meal.getTime(), startTime, endTime));
     }
 
+    public static Meal createMealFromMeal(Meal meal) {
+        return new Meal(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories());
+    }
+
     private static List<MealTo> getFiltered(Collection<Meal> meals, int caloriesPerDay, Predicate<Meal> filter) {
         Map<LocalDate, Integer> caloriesSumByDate = meals.stream()
                 .collect(
