@@ -91,4 +91,9 @@ public abstract class AbstractJdbcMealRepository<T> implements MealRepository {
                 "SELECT * FROM meals WHERE user_id=? AND date_time >=? AND date_time < ? ORDER BY date_time DESC",
                 ROW_MAPPER, userId, function.apply(getStartInclusive(startDate)), function.apply(getEndExclusive(endDate)));
     }
+
+    @Override
+    public Meal getWithUser(int id, int userId) {
+        throw new UnsupportedOperationException();
+    }
 }

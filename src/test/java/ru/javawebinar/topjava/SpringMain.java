@@ -2,6 +2,7 @@ package ru.javawebinar.topjava;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.MealTo;
@@ -27,11 +28,10 @@ public class SpringMain {
             System.out.println();
 
             MealRestController mealController = appCtx.getBean(MealRestController.class);
-            List<MealTo> filteredMealsWithExcess =
-                    mealController.getBetween(
-                            LocalDate.of(2015, Month.MAY, 30), LocalTime.of(7, 0),
-                            LocalDate.of(2015, Month.MAY, 31), LocalTime.of(11, 0));
-            filteredMealsWithExcess.forEach(System.out::println);
+            User withMeals = adminUserController.getWithMeals(100011);
+            System.out.println(withMeals);
+            System.out.println(withMeals.getMeals());
+
         }
     }
 }
