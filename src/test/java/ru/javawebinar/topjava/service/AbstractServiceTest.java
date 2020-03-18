@@ -7,6 +7,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.ExternalResource;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -28,6 +30,9 @@ import static ru.javawebinar.topjava.util.ValidationUtil.getRootCause;
 abstract public class AbstractServiceTest {
     @ClassRule
     public static ExternalResource summary = TimingRules.SUMMARY;
+
+    @Autowired
+    protected Environment environment;
 
     @Rule
     public Stopwatch stopwatch = TimingRules.STOPWATCH;
