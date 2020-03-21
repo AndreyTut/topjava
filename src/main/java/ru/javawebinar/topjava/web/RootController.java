@@ -16,7 +16,7 @@ public class RootController {
 
     @GetMapping("/")
     public String root() {
-        return "/index.jsp";
+        return "/index";
     }
 
     @GetMapping("/users")
