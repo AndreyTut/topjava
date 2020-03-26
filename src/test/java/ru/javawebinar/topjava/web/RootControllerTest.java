@@ -29,4 +29,10 @@ class RootControllerTest extends AbstractControllerTest {
                         }
                 ));
     }
+
+
+    @Test
+    public void getMeals() {
+
+    }
 }
