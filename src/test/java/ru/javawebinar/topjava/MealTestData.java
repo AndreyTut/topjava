@@ -1,8 +1,12 @@
 package ru.javawebinar.topjava;
 
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.to.MealTo;
+import ru.javawebinar.topjava.util.MealsUtil;
 
+import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Comparator;
 import java.util.List;
 
 import static java.time.LocalDateTime.of;
@@ -25,6 +29,15 @@ public class MealTestData {
 
     public static final List<Meal> MEALS = List.of(MEAL7, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
 
+    // MealTo(Integer id, LocalDateTime dateTime, String description, int calories, boolean excess)
+    public static final MealTo MEAL_TO1 = new MealTo(MEAL1_ID, MEAL1.getDateTime(), MEAL1.getDescription(), MEAL1.getCalories(), false);
+    public static final MealTo MEAL_TO2 = new MealTo(MEAL1_ID + 1, MEAL2.getDateTime(), MEAL2.getDescription(), MEAL2.getCalories(), false);
+    public static final MealTo MEAL_TO3 = new MealTo(MEAL1_ID + 2, MEAL3.getDateTime(), MEAL3.getDescription(), MEAL3.getCalories(), false);
+    public static final MealTo MEAL_TO4 = new MealTo(MEAL1_ID + 3, MEAL4.getDateTime(), MEAL4.getDescription(), MEAL4.getCalories(), true);
+    public static final MealTo MEAL_TO5 = new MealTo(MEAL1_ID + 4, MEAL5.getDateTime(), MEAL5.getDescription(), MEAL5.getCalories(), true);
+    public static final MealTo MEAL_TO6 = new MealTo(MEAL1_ID + 5, MEAL6.getDateTime(), MEAL6.getDescription(), MEAL6.getCalories(), true);
+    public static final MealTo MEAL_TO7 = new MealTo(MEAL1_ID + 6, MEAL7.getDateTime(), MEAL7.getDescription(), MEAL7.getCalories(), true);
+
     public static Meal getNew() {
         return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 300);
     }
@@ -43,5 +56,13 @@ public class MealTestData {
 
     public static void assertMatch(Iterable<Meal> actual, Iterable<Meal> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields("user").isEqualTo(expected);
+    }
+
+    public static void assertMatchMealTo(Iterable<MealTo> actual, Iterable<MealTo> expectad){
+        assertThat(actual).usingFieldByFieldElementComparator().isEqualTo(expectad);
+    }
+
+    public static void assertMatchMealTo(Iterable<MealTo> actual, MealTo... expected){
+        assertMatchMealTo(actual, List.of(expected));
     }
 }
