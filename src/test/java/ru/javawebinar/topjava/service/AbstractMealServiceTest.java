@@ -43,7 +43,7 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     void create() throws Exception {
-        Meal newMeal = getNew();
+        Meal newMeal = getCreated();
         Meal created = service.create(newMeal, USER_ID);
         Integer newId = created.getId();
         newMeal.setId(newId);

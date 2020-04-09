@@ -38,7 +38,7 @@ public abstract class AbstractMealController {
     public List<MealTo> getAll() {
         int userId = SecurityUtil.authUserId();
         log.info("getAll for user {}", userId);
-        return MealsUtil.getTos(service.getAll(userId), SecurityUtil.authUserCaloriesPerDay());
+        return MealsUtil.getWithExcess(service.getAll(userId), SecurityUtil.authUserCaloriesPerDay());
     }
 
     public Meal create(Meal meal) {
@@ -67,6 +67,6 @@ public abstract class AbstractMealController {
         log.info("getBetween dates({} - {}) time({} - {}) for user {}", startDate, endDate, startTime, endTime, userId);
 
         List<Meal> mealsDateFiltered = service.getBetweenDates(startDate, endDate, userId);
-        return MealsUtil.getFilteredTos(mealsDateFiltered, SecurityUtil.authUserCaloriesPerDay(), startTime, endTime);
+        return MealsUtil.getFilteredWithExcess(mealsDateFiltered, SecurityUtil.authUserCaloriesPerDay(), startTime, endTime);
     }
 }
