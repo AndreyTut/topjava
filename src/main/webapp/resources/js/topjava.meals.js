@@ -1,28 +1,20 @@
-// $(document).ready(function () {
 $(function () {
     makeEditable({
-            ajaxUrl: "ajax/admin/users/",
+            ajaxUrl: "ajax/meals/",
             datatableApi: $("#datatable").DataTable({
                 "paging": false,
                 "info": true,
                 "columns": [
                     {
-                        "data": "name"
+                        "data": "dateTime"
                     },
                     {
-                        "data": "email"
+                        "data": "description"
                     },
                     {
-                        "data": "roles"
+                        "data": "calories"
                     },
                     {
-                        "data": "enabled"
-                    },
-                    {
-                        "data": "registered"
-                    },
-                    {
-
                         "defaultContent": "Edit",
                         "orderable": false
                     },
@@ -40,4 +32,14 @@ $(function () {
             })
         }
     );
+    $("#filter").click(function () {
+        $.ajax({
+            url: context.ajaxUrl + "filtered",
+            type: "GET",
+            data: $("#filterform").serialize()
+        }).done(function (data) {
+                context.datatableApi.clear.add().rows.add(data);
+                successNoty("filtered");
+            })
+    })
 });
